@@ -633,17 +633,10 @@ html.theme-dark .acessar{
 
 /* ===== Publicações — CTA bem visível (dark) ===== */
 html.theme-dark .publicacao-card .btn.btn-outline-dark{
-  display:inline-flex; align-items:center; gap:.45rem;
-  padding:.65rem 1rem;
-  font-weight:800; letter-spacing:.02em;
-  border-radius:14px; border-width:2px;
-  /* borda e fundo visíveis antes do hover */
   color: var(--ink);
-  background: linear-gradient(180deg, rgba(70,234,223,.10), rgba(70,234,223,.04));
-  text-shadow: 0 1px 0 rgba(0,0,0,.55);
-  box-shadow: 0 6px 14px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.05) inset;
   transition: transform var(--t-base), box-shadow var(--t-base), background var(--t-base), color var(--t-base), border-color var(--t-base);
 }
+
 html.theme-dark .publicacao-card .btn.btn-outline-dark i{
   font-size:1.1rem; transform: translateY(1px);
   transition: transform var(--t-base);
