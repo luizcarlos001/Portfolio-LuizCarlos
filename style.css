@@ -482,15 +482,31 @@ section:nth-of-type(even){ background: color-mix(in oklab, var(--bg) 86%, var(--
 
 /* nav */
 .footer-nav{
-  display:flex; flex-wrap:wrap; gap:.7rem 1rem;
+  display: flex;
+  flex-wrap: nowrap; /* impede a quebra de linha */
+  gap: .7rem 1rem;
+  white-space: nowrap; /* mantém cada link inteiro na mesma linha */
 }
+
+.footer-social {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
 .footer-nav a{
-  color:#f7ece2; opacity:.9; font-weight:600;
-  padding:.25rem .15rem; border-bottom:1px dashed transparent;
+  color: #f7ece2;
+  opacity: .9;
+  font-weight: 600;
+  padding: .25rem .15rem;
+  border-bottom: 1px dashed transparent;
   transition: opacity var(--t-base), transform var(--t-base), border-color var(--t-base);
 }
+
 .footer-nav a:hover{
-  opacity:1; transform: translateY(-1px); border-color:#f7ece2;
+  opacity: 1;
+  transform: translateY(-1px);
+  border-color: #f7ece2;
 }
 
 /* social */
@@ -568,6 +584,8 @@ html.theme-dark small{
   color: var(--ink) !important; /* quase branco quente */
 }
 
+
+
 /* 2) Destaques/strong NÃO ficam vermelhos no dark */
 html.theme-dark strong,
 html.theme-dark .descricao-sobre strong{
@@ -641,3 +659,30 @@ html.theme-dark .publicacao-card .btn.btn-outline-dark i{
   font-size:1.1rem; transform: translateY(1px);
   transition: transform var(--t-base);
 }
+
+/* ===== FIX DEFINITIVO: texto visível nos inputs no tema escuro ===== */
+html.theme-dark input.retro-input,
+html.theme-dark textarea.retro-input {
+  background-color: #100d0a !important;      /* fundo escuro */
+  color: #FFF8E9 !important;                  /* texto claro */
+  -webkit-text-fill-color: #FFF8E9 !important;/* WebKit (Chrome/Safari) */
+  caret-color: #FFF8E9 !important;
+  border-color: #3b2e26 !important;
+}
+
+/* placeholders em todos os engines */
+html.theme-dark input.retro-input::placeholder,
+html.theme-dark textarea.retro-input::placeholder { color: rgba(255,248,233,.55) !important; }
+html.theme-dark input.retro-input::-ms-input-placeholder,
+html.theme-dark textarea.retro-input::-ms-input-placeholder { color: rgba(255,248,233,.55) !important; }
+html.theme-dark input.retro-input::-moz-placeholder,
+html.theme-dark textarea.retro-input::-moz-placeholder { color: rgba(255,248,233,.55) !important; opacity:1; }
+
+/* autofill do Chrome/Edge/Safari não clarear o fundo */
+html.theme-dark input.retro-input:-webkit-autofill,
+html.theme-dark textarea.retro-input:-webkit-autofill{
+  -webkit-box-shadow: 0 0 0 1000px #100d0a inset !important;
+  -webkit-text-fill-color: #FFF8E9 !important;
+}
+
+
