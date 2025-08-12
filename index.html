@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfólio</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- IBM Plex Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,400;0,700;1,100;1,700&display=swap" rel="stylesheet" />
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet" />
+  <!-- CSS personalizado -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body style="overflow-x: hidden;">
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <img src="./assets/logo.png" alt="Logo LC" style="height: 90px;" />
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Abrir navegação">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav gap-4 align-items-lg-center">
+        <li class="nav-item"><a class="nav-link" href="#inicio">Início</a></li>
+        <li class="nav-item"><a class="nav-link" href="#sobre">Sobre mim</a></li>
+        <li class="nav-item"><a class="nav-link" href="#habilidades">Habilidades</a></li>
+        <li class="nav-item"><a class="nav-link" href="#projetos">Projetos</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contatos">Contatos</a></li>
+
+        <!-- Botão de tema -->
+        <li class="nav-item d-flex align-items-center">
+          <button id="themeToggle" class="btn-theme ms-lg-2" type="button" aria-label="Alternar tema" aria-pressed="false">
+            <i class='bx bx-moon' aria-hidden="true"></i>
+            <span class="visually-hidden">Alternar tema</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <!-- APRESENTAÇÃO -->
+  <section class="apresentacao container" id="inicio">
+    <div class="apresentacao__texto" data-animate>
+      <span class="hello-mundo">&lt;hello world&gt;</span>
+      <p class="intro">Meu nome é <span class="nome">LUIZ CARLOS</span></p>
+      <p class="descricao">Desenvolvedor apaixonado por criar soluções com tecnologia.</p>
+      <div class="apresentacao__icones">
+        <a href="https://github.com/luizcarlos001" target="_blank" rel="noopener"><img src="assets/github - Editado.png" alt="GitHub"></a>
+        <a href="https://www.linkedin.com/in/luizcarlosgomesjr/" target="_blank" rel="noopener"><img src="assets/linkedin - Editado.png" alt="LinkedIn"></a>
+        <a class="email-link"
+        href="mailto:luizcgjunior2018@gmail.com?subject=Contato%20via%20Portf%C3%B3lio&body=Oi%20Luiz,%0AQuero%20falar%20sobre...">
+        <img src="assets/email - Editado.png" alt="Enviar e-mail" width="32" height="32">
+      </a>
+      </div>
+    </div>
+    <div class="apresentacao__imagem" data-animate>
+      <img src="assets/luiz.png" alt="Foto de Luiz Carlos" class="foto-animada-rotacao" loading="lazy">
+    </div>
+  </section>
+
+  <!-- SOBRE MIM -->
+  <section class="sobre-container" id="sobre">
+    <div class="sobre__fundo" data-animate>
+      <span class="hello-mundo-2">&lt;about me&gt;</span>
+      <div class="sobre__content">
+        <div class="foto-sobre-container">
+          <img src="assets/Design sem nome (19).png" alt="Luiz Carlos" class="foto-sobre" loading="lazy" />
+        </div>
+        <div class="sobre__texto">
+          <p class="descricao-sobre">
+            Sou graduando em <strong>Ciência e Tecnologia</strong> na UFMA, com foco em <strong>Engenharia da Computação</strong>.
+            Tenho uma <strong>curiosidade insaciável</strong> e uma <strong>paixão por entender como as coisas funcionam</strong>.
+            Adoro transformar ideias em soluções práticas e estou sempre em busca de novos desafios.
+            Este portfólio é um reflexo da minha jornada e das coisas que me motivam.
+          </p>
+        </div>
+      </div>
+
+      <!-- TÍTULO ATIVIDADES -->
+      <div class="text-center my-5">
+        <h2 class="fw-semibold" style="color:#471010; font-size: 3rem; margin-top: -50px;">Atividades Acadêmicas</h2>
+        <p class="text-muted" style="font-size: 1rem;">Projetos e experiências que moldaram minha trajetória</p>
+      </div>
+
+      <!-- CARROSSEL -->
+      <div id="carrosselExperiencias" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner" style="margin-top: -20px">
+          <!-- Slide 1 -->
+          <div class="carousel-item active">
+            <div class="d-flex justify-content-center px-4 flex-wrap gap-3 w-100 mx-auto">
+              <div class="card-experiencia">
+                <img src="assets/thumbnail.jpeg" alt="Cientistas de Alcântara" loading="lazy">
+                <h5>Aula de Robótica</h5>
+                <p>Ministro aulas de robótica e programação em escolas públicas de Alcântara (MA) por meio do projeto de extensão “Cientistas de Alcântara”.</p>
+              </div>
+              <div class="card-experiencia">
+                <img src="assets/WhatsApp Image 2025-07-28 at 11.23.06.jpeg" alt="Programa Jovem Tech" loading="lazy">
+                <h5>Programa Jovem Tech</h5>
+                <p>Participo do programa Jovem Tech, onde desenvolvo projetos de software em trilhas formativas com foco prático e orientação profissional.</p>
+              </div>
+              <div class="card-experiencia">
+                <img src="assets/WhatsApp Image 2025-07-28 at 12.10.36.jpeg" alt="Programa Trilhas Inova" loading="lazy">
+                <h5>Programa Trilhas Inova</h5>
+                <p>Participei do Programa Trilhas Inova, com foco no desenvolvimento de soluções digitais e back-end. Atuei em projetos reais com impacto social.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="carousel-item">
+            <div class="d-flex justify-content-center px-2 flex-wrap gap-2">
+              <div class="card-experiencia">
+                <img src="assets/foto-ej.jpeg" alt="Prática Engenharia Júnior" loading="lazy">
+                <h5>Prática Engenharia Júnior</h5>
+                <p>Gerencio ações de desenvolvimento pessoal no time de Gestão de Pessoas, promovendo crescimento técnico e humano dos membros da empresa.</p>
+              </div>
+              <div class="card-experiencia">
+                <img src="assets/sinapse.jpeg" alt="Grupo Sinapse" loading="lazy">
+                <h5>Grupo Sinapse</h5>
+                <p>Participo do grupo acadêmico Sinapse, vinculado ao DARTiLab, onde atuamos com projetos de inteligência artificial e análise de dados.</p>
+              </div>
+              <div class="card-experiencia">
+                <img src="assets/ga.jpeg" alt="Game Analysis" loading="lazy">
+                <h5>Game Analysis</h5>
+                <p>Atuei no laboratório Game Analysis da UFMA, explorando design, narrativa e jogabilidade de games digitais. Além de participar de eventos no tema.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botões do carrossel -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carrosselExperiencias" data-bs-slide="prev" aria-label="Anterior">
+          <span class="carousel-control-prev-icon"><i class='bx bx-chevron-left' style="color: white;"></i></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carrosselExperiencias" data-bs-slide="next" aria-label="Próximo">
+          <span class="carousel-control-next-icon"><i class='bx bx-chevron-right' style="color: white;"></i></span>
+        </button>
+      </div>
+
+      <!-- PUBLICAÇÕES -->
+      <section id="publicacoes" class="container my-5" data-animate>
+        <h2 class="text-center" style="color:#471010; font-size: 3rem; font-weight: 600;">Publicações</h2>
+        <p class="text-center text-muted mb-4">Artigos e trabalhos publicados na área de Tecnologia da Informação</p>
+
+        <div class="row justify-content-center g-4">
+          <div class="col-md-4">
+            <div class="publicacao-card h-100">
+              <h5>Virtual no Ensino: Ambientes Cognitivos Imersivos</h5>
+              <p>
+                Apresentação sobre Óculos de Realidade Virtual, abordando estrutura técnica, aplicações
+                educacionais e potencial para inclusão digital.
+              </p>
+              <a href="https://zenodo.org/records/15161253" target="_blank" rel="noopener" class="btn btn-outline-dark">
+                <i class='bx bx-link-external'></i> Ler Publicação
+              </a>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="publicacao-card h-100">
+              <h5>Monitoramento de Infraestrutura Portuária</h5>
+              <p>
+                Estudo sobre sensores IoT e IA para monitorar temperatura, vibração e condições
+                climáticas em portos, visando segurança e eficiência.
+              </p>
+              <a href="https://zenodo.org/records/15282989" target="_blank" rel="noopener" class="btn btn-outline-dark">
+                <i class='bx bx-link-external'></i> Ler Publicação
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <!-- HABILIDADES -->
+  <section id="habilidades" class="container my-5" data-animate>
+    <h2 class="text-center" style="color:#471010; font-size: 3rem; font-weight: 600;">Habilidades</h2>
+    <p class="text-center text-muted mb-4">Ferramentas e tecnologias que utilizo no dia a dia</p>
+
+    <div class="row row-cols-2 row-cols-md-4 g-4 justify-content-center">
+      <!-- HTML -->
+      <div class="col">
+        <div class="card border-0 shadow-sm text-center py-4 h-100 habilidade-card">
+          <div class="tech-badge"><i class='bx bxl-html5' style="font-size:36px; color:#e34c26;" aria-hidden="true"></i></div>
+          <p class="mt-2 mb-0 fw-semibold">HTML5</p>
+        </div>
+      </div>
+      <!-- CSS -->
+      <div class="col">
+        <div class="card border-0 shadow-sm text-center py-4 h-100 habilidade-card">
+          <div class="tech-badge"><i class='bx bxl-css3' style="font-size:36px; color:#264de4;" aria-hidden="true"></i></div>
+          <p class="mt-2 mb-0 fw-semibold">CSS3</p>
+        </div>
+      </div>
+      <!-- JavaScript -->
+      <div class="col">
+        <div class="card border-0 shadow-sm text-center py-4 h-100 habilidade-card">
+          <div class="tech-badge"><i class='bx bxl-javascript' style="font-size:36px; color:#f0db4f;" aria-hidden="true"></i></div>
+          <p class="mt-2 mb-0 fw-semibold">JavaScript</p>
+        </div>
+      </div>
+      <!-- Python -->
+      <div class="col">
+        <div class="card border-0 shadow-sm text-center py-4 h-100 habilidade-card">
+          <div class="tech-badge"><i class='bx bxl-python' style="font-size:36px; color:#3776AB;" aria-hidden="true"></i></div>
+          <p class="mt-2 mb-0 fw-semibold">Python</p>
+        </div>
+      </div>
+      <!-- Bootstrap -->
+      <div class="col">
+        <div class="card border-0 shadow-sm text-center py-4 h-100 habilidade-card">
+          <div class="tech-badge"><i class='bx bxl-bootstrap' style="font-size:36px; color:#7952b3;" aria-hidden="true"></i></div>
+          <p class="mt-2 mb-0 fw-semibold">Bootstrap</p>
+        </div>
+      </div>
+      <!-- SQL -->
+      <div class="col">
+        <div class="card border-0 shadow-sm text-center py-4 h-100 habilidade-card">
+          <div class="tech-badge"><i class='bx bx-data' style="font-size:36px; color:#2f4f4f;" aria-hidden="true"></i></div>
+          <p class="mt-2 mb-0 fw-semibold">SQL</p>
+        </div>
+      </div>
+      <!-- Power BI -->
+      <div class="col">
+        <div class="card border-0 shadow-sm text-center py-4 h-100 habilidade-card">
+          <div class="tech-badge"><i class='bx bxs-bar-chart-alt-2' style="font-size:36px; color:#f6c500;" aria-hidden="true"></i></div>
+          <p class="mt-2 mb-0 fw-semibold">Power BI</p>
+        </div>
+      </div>
+      <!-- Figma -->
+      <div class="col">
+        <div class="card border-0 shadow-sm text-center py-4 h-100 habilidade-card">
+          <div class="tech-badge"><i class='bx bxl-figma' style="font-size:36px; color:#a259ff;" aria-hidden="true"></i></div>
+          <p class="mt-2 mb-0 fw-semibold">Figma</p>
+        </div>
+      </div>
+      <!-- Git -->
+      <div class="col">
+        <div class="card border-0 shadow-sm text-center py-4 h-100 habilidade-card">
+          <div class="tech-badge"><i class='bx bxl-git' style="font-size:36px; color:#F05032;" aria-hidden="true"></i></div>
+          <p class="mt-2 mb-0 fw-semibold">Git</p>
+        </div>
+      </div>
+      <!-- Cypress -->
+      <div class="col">
+        <div class="card border-0 shadow-sm text-center py-4 h-100 habilidade-card">
+          <div class="tech-badge"><img src="https://cdn.simpleicons.org/cypress/69D3A7" alt="Cypress" style="width:36px; height:36px;" loading="lazy"></div>
+          <p class="mt-2 mb-0 fw-semibold">Cypress</p>
+        </div>
+      </div>
+      <!-- Robot Framework -->
+      <div class="col">
+        <div class="card border-0 shadow-sm text-center py-4 h-100 habilidade-card">
+          <div class="tech-badge"><img src="https://cdn.simpleicons.org/robotframework/CC0000" alt="Robot Framework" style="width:36px; height:36px;" loading="lazy"></div>
+          <p class="mt-2 mb-0 fw-semibold">Robot Framework</p>
+        </div>
+      </div>
+      <!-- Looker Studio -->
+      <div class="col">
+        <div class="card border-0 shadow-sm text-center py-4 h-100 habilidade-card">
+          <div class="tech-badge">
+            <img src="https://cdn.simpleicons.org/lookerstudio/1A73E8" alt="Looker Studio" style="width:36px;height:36px" loading="lazy"
+                 onerror="this.onerror=null; this.src='https://cdn.simpleicons.org/looker/1A73E8'; this.alt='Looker';">
+          </div>
+          <p class="mt-2 mb-0 fw-semibold">Looker Studio</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJETOS -->
+  <section id="projetos" class="container my-5" data-animate>
+    <h2 class="text-center" style="color:#471010; font-size: 3rem; font-weight: 600;">Projetos</h2>
+    <p class="text-center text-muted mb-4">Tecnologia e criatividade em ação</p>
+
+    <div class="grid-projetos">
+      <!-- 1 -->
+      <a href="https://fam-web-page.vercel.app/pages/about.html" target="_blank" rel="noopener" class="projeto-card quadrado">
+        <img src="assets/projeto1.png" alt="Site da ONG FAM" loading="lazy">
+        <div class="info">
+          <h5>Site ONG FAM</h5>
+          <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <div class="acessar">Acessar Projeto</div>
+        </div>
+      </a>
+
+      <!-- 2 -->
+      <a href="https://github.com/luizcarlos001/DashboardFinal-JT" target="_blank" rel="noopener" class="projeto-card quadrado">
+        <img src="assets/projeto2.jpeg" alt="Dashboard de Estoque" loading="lazy">
+        <div class="info">
+          <h5>Dashboard Estoque de Frango</h5>
+          <div class="tags"><span>Python</span><span>Streamlit</span></div>
+          <div class="acessar">Acessar Projeto</div>
+        </div>
+      </a>
+
+      <!-- 3 -->
+      <a href="https://github.com/luizcarlos001/Jogo-Ping-Pong" target="_blank" rel="noopener" class="projeto-card quadrado">
+        <img src="assets/projeto3.png" alt="Jogo Ping-Pong" loading="lazy">
+        <div class="info">
+          <h5>Jogo Ping-Pong</h5>
+          <div class="tags"><span>JavaScript</span><span>HTML</span></div>
+          <div class="acessar">Acessar Projeto</div>
+        </div>
+      </a>
+
+      <!-- 4 -->
+      <a href="https://guia-turistico-maranhao-ten.vercel.app/index.html" target="_blank" rel="noopener" class="projeto-card quadrado">
+        <img src="assets/projeto4.png" alt="Site Guia Maranhão" loading="lazy">
+        <div class="info">
+          <h5>Site Guia Maranhão</h5>
+          <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <div class="acessar">Acessar Projeto</div>
+        </div>
+      </a>
+
+      <!-- 5 -->
+      <a href="https://github.com/luizcarlos001/PostgreeSQL---Cursos-Online" target="_blank" rel="noopener" class="projeto-card quadrado">
+        <img src="assets/projeto5.png" alt="Banco de Dados — Sistemas Carros" loading="lazy">
+        <div class="info">
+          <h5>Banco de Dados — Sistemas Carros</h5>
+          <div class="tags"><span>PostgreSQL</span><span>SQL</span><span>PL/pgSQL</span></div>
+          <div class="acessar">Acessar Projeto</div>
+        </div>
+      </a>
+
+      <!-- 6 (Figma) -->
+      <a href="#" class="projeto-card quadrado open-figma" data-figma="https://www.figma.com/design/SMk1CwyqtXzGBzZNimqlIV/T-MED?node-id=0-1&t=uVe6Uz3BBdtNqHS5-1">
+        <img src="assets/Projeto6.png" alt="T-MED – telas iniciais" loading="lazy">
+        <div class="info">
+          <h5>T-MED — App de Saúde Ocupacional</h5>
+          <div class="tags"><span>Figma</span><span>UI/UX</span><span>Protótipo</span></div>
+          <div class="acessar">Ver protótipo</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- CONTATOS -->
+  <section id="contatos" class="container my-5" data-animate>
+    <div class="contato-wrap">
+      <div class="row g-4 align-items-stretch">
+        <!-- Lado esquerdo -->
+        <div class="col-lg-5">
+          <div class="contact-aside">
+            <h3 id="contact-title" class="type-title" data-fulltext="Vamos conversar?"></h3>
+            <p class="muted">Construo interfaces, dashboards e automações. Me chama por onde preferir:</p>
+
+            <div class="chips">
+              <a class="chip" href="mailto:luizcgjunior2018@gmail.com?subject=Contato%20via%20Portf%C3%B3lio">
+                <i class='bx bx-envelope'></i> Email
+              </a>
+              <a class="chip" href="https://www.linkedin.com/in/luizcarlosgomesjr/" target="_blank" rel="noopener">
+                <i class='bx bxl-linkedin'></i> LinkedIn
+              </a>
+              <a class="chip" href="https://github.com/luizcarlos001" target="_blank" rel="noopener">
+                <i class='bx bxl-github'></i> GitHub
+              </a>
+            </div>
+
+            <button id="copyMail" class="btn-copy" type="button" aria-label="Copiar e-mail">
+              <i class='bx bx-copy'></i><span> Copiar e-mail</span>
+            </button>
+            <small class="email-text">luizcgjunior2018@gmail.com</small>
+          </div>
+        </div>
+
+        <!-- Lado direito: formulário -->
+          <div class="col-lg-7">
+            <form
+              id="contactForm"
+              class="form-paper"
+              method="POST"
+              action="https://formsubmit.co/luizcgjunior2018@gmail.com"
+              autocomplete="on"
+              novalidate
+            >
+              <!-- anti-spam -->
+              <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+              <!-- opções -->
+              <input type="hidden" name="_captcha" value="false">
+              <input type="hidden" name="_subject" value="Contato via Portfólio — Novo lead">
+              <input type="hidden" name="_template" value="table">
+
+              <div class="paper-inner">
+                <div class="row g-3">
+                  <div class="col-sm-6">
+                    <label class="form-label">Seu nome</label>
+                    <input class="retro-input" type="text" name="name" required>
+                  </div>
+                  <div class="col-sm-6">
+                    <label class="form-label">Seu e-mail</label>
+                    <input class="retro-input" type="email" name="email" required>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">Assunto</label>
+                    <input class="retro-input" type="text" name="subject" placeholder="Quero falar sobre...">
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">Mensagem</label>
+                    <textarea class="retro-input" rows="5" name="message" required></textarea>
+                  </div>
+                </div>
+
+                <div class="mt-3 d-flex gap-2 align-items-center">
+                  <button class="btn-coffee" type="submit">
+                    <i class='bx bx-paper-plane'></i> Enviar
+                  </button>
+                  <span id="formStatus" class="status" aria-live="polite"></span>
+                </div>
+              </div>
+
+              <span class="stamp">DISPONÍVEL</span>
+            </form>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bootstrap Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js" defer></script>
+</body>
+
+<footer class="site-footer" id="footer">
+  <div class="container">
+    <!-- CTA -->
+    <div class="footer-cta" data-animate>
+      <h3>Vamos criar algo juntos?</h3>
+      <a class="btn-coffee" href="#contatos">
+        <i class='bx bx-chat'></i> Falar comigo
+      </a>
+    </div>
+
+    <hr class="footer-sep">
+
+    <div class="row gy-4 align-items-start">
+      <!-- Brand -->
+      <div class="col-md-4">
+        <div class="footer-brand">
+          <img src="./assets/logo.png" alt="LC" class="footer-logo" loading="lazy">
+          <p>Portfólio de Luiz Carlos.</p>
+        </div>
+      </div>
+
+      <!-- Navegação -->
+      <div class="col-md-4">
+        <nav class="footer-nav">
+          <a href="#inicio">Início</a>
+          <a href="#sobre">Sobre mim</a>
+          <a href="#habilidades">Habilidades</a>
+          <a href="#projetos">Projetos</a>
+          <a href="#contatos">Contatos</a>
+        </nav>
+      </div>
+
+      <!-- Social -->
+      <div class="col-md-4">
+        <div class="footer-social">
+          <a href="mailto:luizcgjunior2018@gmail.com" aria-label="E-mail">
+            <i class='bx bx-envelope'></i>
+          </a>
+          <a href="https://www.linkedin.com/in/luizcarlosgomesjr/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <i class='bx bxl-linkedin'></i>
+          </a>
+          <a href="https://github.com/luizcarlos001" target="_blank" rel="noopener" aria-label="GitHub">
+            <i class='bx bxl-github'></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-legal">
+      <small>© <span id="year"></span> Luiz Carlos. Todos os direitos reservados.</small>
+      <a href="#inicio" class="to-top" aria-label="Voltar ao topo">
+        <i class='bx bx-arrow-to-top'></i>
+      </a>
+    </div>
+  </div>
+</footer>
+
+</html>
