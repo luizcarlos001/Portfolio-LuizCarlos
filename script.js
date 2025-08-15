@@ -275,3 +275,65 @@ document.addEventListener('DOMContentLoaded', () => {
   rebuild(); // roda na carga
 })();
 
+document.addEventListener('DOMContentLoaded', () => {
+  const toggler = document.querySelector('.navbar .navbar-toggler');
+  const collapseEl = document.querySelector('.navbar .navbar-collapse');
+  if (!toggler || !collapseEl) return;
+
+  // Usa a API do Bootstrap se estiver carregada; senão, cai no fallback
+  const bsCollapse = window.bootstrap
+    ? bootstrap.Collapse.getOrCreateInstance(collapseEl, { toggle: false })
+    : null;
+
+  const isOpen = () => collapseEl.classList.contains('show');
+  const closeMenu = () => (bsCollapse ? bsCollapse.hide() : collapseEl.classList.remove('show'));
+
+  // Fecha ao clicar fora
+  document.addEventListener('click', (e) => {
+    if (!isOpen()) return;
+    const clickedInside = collapseEl.contains(e.target) || toggler.contains(e.target);
+    if (!clickedInside) closeMenu();
+  });
+
+  // Fecha ao clicar em qualquer link dentro do menu (exceto dropdown toggles)
+  collapseEl.addEventListener('click', (e) => {
+    const link = e.target.closest('.nav-link, .dropdown-item, a');
+    if (!link) return;
+    if (link.matches('[data-bs-toggle="dropdown"]')) return;
+    if (isOpen()) closeMenu();
+  });
+
+  // Fecha com ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen()) {
+      closeMenu();
+      toggler.focus();
+    }
+  });
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const navbar = document.querySelector('.navbar');
+
+  function setMobileNavPadding(){
+    if (!navbar) return;
+    const isMobile = window.matchMedia('(max-width: 575.98px)').matches;
+    if (isMobile) {
+      // mede a altura real (leva em conta o logo, paddings etc.)
+      const h = navbar.offsetHeight;
+      document.documentElement.style.setProperty('--nav-h-mobile', h + 'px');
+    } else {
+      document.documentElement.style.removeProperty('--nav-h-mobile');
+    }
+  }
+
+  setMobileNavPadding();
+  window.addEventListener('resize', setMobileNavPadding);
+  window.addEventListener('orientationchange', setMobileNavPadding);
+  // se o logo carregar depois, recalcula
+  window.addEventListener('load', setMobileNavPadding);
+});
+
+
+

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" class="logo-anim-shine"> <!-- <- ativa a animação da logo -->
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,14 +14,15 @@
   <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet" />
   <!-- CSS personalizado -->
   <link rel="stylesheet" href="style.css" />
+  
 </head>
 
 <body style="overflow-x: hidden;">
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="#">
-      <img src="./assets/logo.png" alt="Logo LC" style="height: 90px;" />
+    <a class="navbar-brand logo-wrap" href="#"> <!-- <- adicionada logo-wrap -->
+      <img src="./assets/logo.png" alt="Logo LC" class="logo-img" style="height: 90px;" /> <!-- <- adicionada logo-img -->
     </a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Abrir navegação">
@@ -183,7 +185,7 @@
 
   <!-- HABILIDADES -->
   <section id="habilidades" class="container my-5" data-animate>
-    <h2 class="text-center" style="color:#471010; font-size: 3rem; font-weight: 600;">Habilidades</h2>
+    <h2 class="text-center" style="color:#471010; font-size: 3 rem; font-weight: 600;">Habilidades</h2>
     <p class="text-center text-muted mb-4">Ferramentas e tecnologias que utilizo no dia a dia</p>
 
     <div class="row row-cols-2 row-cols-md-4 g-4 justify-content-center">
