@@ -222,3 +222,56 @@ document.addEventListener('DOMContentLoaded', () => {
   // Acessibilidade: setas do teclado movem no mobile também
   [prev, next].forEach(btn => btn.setAttribute('tabindex','0'));
 });
+
+// === Carrossel: 1 card por slide no mobile (e restaura no desktop) ===
+(function mobileOneCardPerSlide(){
+  const BREAKPOINT = 768;
+  const el = document.getElementById('carrosselExperiencias');
+  if (!el) return;
+  const inner = el.querySelector('.carousel-inner');
+  if (!inner) return;
+
+  // salva o HTML original (2 slides com 3 cards)
+  const originalSlides = [...inner.children].map(n => n.cloneNode(true));
+  let isMobile = null;
+
+  function rebuild(){
+    const nowMobile = window.innerWidth < BREAKPOINT;
+    if (nowMobile === isMobile) return;
+
+    // reseta o Bootstrap Carousel antes de trocar o DOM
+    const inst = bootstrap.Carousel.getInstance(el);
+    if (inst) inst.dispose();
+
+    if (nowMobile){
+      // pega todos os cards e cria 1 slide para cada
+      const cards = [...inner.querySelectorAll('.card-experiencia')];
+      inner.innerHTML = '';
+      cards.forEach((card, i) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'd-flex justify-content-center px-4 flex-wrap gap-3 w-100 mx-auto';
+        wrap.appendChild(card); // move o card
+        const item = document.createElement('div');
+        item.className = 'carousel-item' + (i === 0 ? ' active' : '');
+        item.appendChild(wrap);
+        inner.appendChild(item);
+      });
+    } else {
+      // restaura a estrutura original (3 por slide)
+      inner.innerHTML = '';
+      originalSlides.forEach((slide, i) => {
+        const clone = slide.cloneNode(true);
+        clone.classList.toggle('active', i === 0);
+        inner.appendChild(clone);
+      });
+    }
+
+    // reativa o carrossel (sem autoplay)
+    new bootstrap.Carousel(el, { interval: false, ride: false, touch: true, wrap: true });
+    isMobile = nowMobile;
+  }
+
+  window.addEventListener('resize', rebuild, { passive: true });
+  rebuild(); // roda na carga
+})();
+

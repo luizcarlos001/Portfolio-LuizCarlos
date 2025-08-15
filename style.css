@@ -865,3 +865,7 @@ html.theme-dark .navbar .navbar-nav>li:last-child .btn-theme:hover{
   }
 }
 
+/* exemplo que causa o bug */
+#carrosselExperiencias .carousel-item > .d-flex > .card-experiencia:nth-child(n+2){ display:none!important; }
+#carrosselExperiencias .carousel-item > .d-flex > .card-experiencia:nth-child(n+3){ display:none!important; }
+
