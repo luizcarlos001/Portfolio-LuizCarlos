@@ -208,3 +208,17 @@ document.addEventListener('DOMContentLoaded', () => {
   if (y) y.textContent = new Date().getFullYear();
 });
 
+// ===== Slider de experiências (mobile) — rolagem pelos botões
+document.addEventListener('DOMContentLoaded', () => {
+  const wrap = document.querySelector('#experiencias .experiencias-snap');
+  const prev = document.querySelector('#experiencias .snap-prev');
+  const next = document.querySelector('#experiencias .snap-next');
+  if (!wrap || !prev || !next) return;
+
+  const step = () => Math.round(wrap.clientWidth * 0.86); // ⬅️ passo da rolagem (mesmo 86% do CSS)
+  prev.addEventListener('click', () => wrap.scrollBy({ left: -step(), behavior: 'smooth' }));
+  next.addEventListener('click', () => wrap.scrollBy({ left:  step(), behavior: 'smooth' }));
+
+  // Acessibilidade: setas do teclado movem no mobile também
+  [prev, next].forEach(btn => btn.setAttribute('tabindex','0'));
+});
