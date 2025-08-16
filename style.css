@@ -743,8 +743,85 @@ html.theme-dark .navbar .navbar-nav>li:last-child .btn-theme:hover{
   .apresentacao__imagem{ margin-top: 0 !important; }
 }
 
+/* Mobile (≤575.98px): aumenta o “Vamos conversar?” */
+@media (max-width: 575.98px){
+  #contatos .type-title{
+    font-size: clamp(2.9rem, 9.5vw, 3.4rem) !important;
+    line-height: 1.08;
+    letter-spacing: .5px;
+  }
+}
 
 
+/* ==============================
+   FOOTER — RESPONSIVO
+   ============================== */
 
+/* Tablets e abaixo */
+@media (max-width: 991.98px){
+  .site-footer .row{ gap: 1.75rem; align-items: center; }
+  .footer-brand, .footer-nav, .footer-social{ text-align:center; }
+
+  /* Navegação do footer quebra linha e centraliza */
+  .footer-nav{
+    justify-content:center;
+    flex-wrap:wrap;
+    white-space:normal !important; /* sobrepõe o nowrap do base */
+    gap:.4rem .9rem;
+  }
+  .footer-nav a{
+    padding:.35rem .5rem;
+    border-bottom:1px dashed transparent; /* mantém o hover bonitinho */
+  }
+
+  /* Social centralizado e com wrap */
+  .footer-social{ justify-content:center; flex-wrap:wrap; gap:.8rem; }
+
+  /* Legal: empilha e centraliza */
+  .footer-legal{
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:.5rem;
+    text-align:center;
+  }
+}
+
+/* Mobile */
+@media (max-width: 575.98px){
+  /* CTA empilhada */
+  .footer-cta{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:.8rem;
+  }
+  .footer-cta h3{ font-size:clamp(1.25rem, 5.5vw, 1.6rem); }
+
+  /* Marca centralizada */
+  .footer-brand{ margin-inline:auto; }
+  .footer-logo{ height:42px; }
+
+  /* Links maiores e com boa área de toque */
+  .footer-nav a{ font-size:1rem; }
+
+  /* Ícones sociais com 44px (acessibilidade) — sobrepõe regras antigas */
+  .site-footer .footer-social a{
+    width:44px !important;
+    height:44px !important;
+    font-size:1.1rem !important;
+  }
+
+  /* Botão “to top” central e com toque confortável */
+  .to-top{
+    width:44px; height:44px; border-radius:12px;
+  }
+}
+
+/* Muito estreito: garante que nada estoure */
+@media (max-width: 360px){
+  .footer-nav{ gap:.35rem .6rem; }
+  .footer-nav a{ font-size:.95rem; }
+}
 
 
