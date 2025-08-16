@@ -24,6 +24,10 @@
   --t-fast:.2s; --t-base:.3s; --t-slow:.45s;
 
   --nav-h:100px;
+
+  /* Tipografia unificada para títulos de seção */
+  --sec-title-desktop: clamp(2.4rem, 3.2vw, 3rem);
+  --sec-title-mobile: 2.5rem;
 }
 
 /* acessibilidade: reduzir movimento */
@@ -46,6 +50,28 @@ img{max-width:100%;height:auto}
 .container{max-width:1200px;margin-inline:auto;padding-inline:clamp(12px,3vw,24px)}
 section{padding-block:var(--sp-5);scroll-margin-top:calc(var(--nav-h) + 12px)}
 section:nth-of-type(even){background:color-mix(in oklab, var(--bg) 86%, var(--bg-alt))}
+
+/* ==============================
+   TIPOGRAFIA — Títulos de seção (unificados)
+   ============================== */
+#habilidades h2,
+#projetos h2,
+#publicacoes h2,
+#sobre .text-center h2,
+#contatos .type-title{
+  font-size: var(--sec-title-desktop) !important;
+  line-height: 1.1;
+  font-weight: 600;
+}
+@media (max-width: 575.98px){
+  #habilidades h2,
+  #projetos h2,
+  #publicacoes h2,
+  #sobre .text-center h2,
+  #contatos .type-title{
+    font-size: var(--sec-title-mobile) !important;
+  }
+}
 
 
 /* ==============================
@@ -705,15 +731,20 @@ html.theme-dark .navbar .navbar-nav>li:last-child .btn-theme:hover{
   }
 }
 
-
-
-@media (max-width: 575.98px){
-  #habilidades h2,
-  #projetos h2,
-  #publicacoes h2,
-  #sobre .text-center h2{
-    font-size: clamp(2.5rem, 6.5vw, 2.2rem) !important;
-    line-height: 1.1;
-  }
+/* Tablet (≤991.98px) — sobe menos pra não encostar na navbar */
+@media (max-width: 991.98px){
+  .apresentacao.container{ margin-top: -2.8rem; }
 }
+
+/* Mobile (≤575.98px) — compensa a navbar fixa e remove a folga da imagem */
+@media (max-width: 575.98px){
+  #inicio{ padding-top: 64px; }            /* era 70px */
+  .apresentacao.container{ margin-top: -2.8rem; }
+  .apresentacao__imagem{ margin-top: 0 !important; }
+}
+
+
+
+
+
 

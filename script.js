@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-  /* ===== Tema (light/dark por tokens + persistência) ===== */
+  /* ===== Tema (light/dark com persistência) ===== */
   (function themeManager(){
-    const KEY = 'theme';              // 'light' | 'dark'
+    const KEY = 'theme';
     const html = document.documentElement;
     const btn  = document.getElementById('themeToggle');
 
@@ -16,14 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
-    // preferência salva?
     let saved = localStorage.getItem(KEY);
     if (!saved){
       saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
     apply(saved);
 
-    // acompanhar SO (só se usuário não fixou depois)
     const mql = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
     const onChange = (e) => {
       if (!localStorage.getItem(KEY)){ apply(e.matches ? 'dark' : 'light'); }
@@ -40,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })();
 
-  /* ===== Animate on scroll (uma vez só) ===== */
+  /* ===== Animate on scroll (uma vez) ===== */
   const animated = document.querySelectorAll('[data-animate]');
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries, obs) => {
@@ -57,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ===== Navbar sombra (throttled + passive) ===== */
-  const navbar = document.querySelector('.navbar, .navbar-paper');
+  const navbar = document.querySelector('.navbar');
   if (navbar) {
     let ticking = false;
     const apply = () => { navbar.classList.toggle('scrolled', window.scrollY > 8); ticking = false; };
@@ -67,22 +65,27 @@ document.addEventListener('DOMContentLoaded', () => {
     apply();
   }
 
-  /* ===== Título "digitando" (caret via CSS ::after) ===== */
+  /* ===== Título "digitando" com respeito ao prefers-reduced-motion ===== */
   const title = document.getElementById('contact-title');
   if (title) {
     const full = (title.dataset.fulltext || title.textContent || '').trim();
-    title.textContent = '';
-    let i = 0;
-    const speed = 55;
-    (function type(){
-      if (i <= full.length) {
-        title.textContent = full.slice(0, i++);
-        setTimeout(type, speed);
-      }
-    })();
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) {
+      title.textContent = full;
+    } else {
+      title.textContent = '';
+      let i = 0;
+      const speed = 55;
+      (function type(){
+        if (i <= full.length) {
+          title.textContent = full.slice(0, i++);
+          setTimeout(type, speed);
+        }
+      })();
+    }
   }
 
-  /* ===== Copiar e-mail (com fallback) ===== */
+  /* ===== Copiar e-mail ===== */
   const copyBtn = document.getElementById('copyMail');
   if (copyBtn) {
     const email = 'luizcgjunior2018@gmail.com';
@@ -104,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ===== Formulário -> envia via FormSubmit (AJAX, sem abrir e-mail) ===== */
+  /* ===== Formulário (AJAX via FormSubmit) ===== */
   const form = document.getElementById('contactForm');
   if (form) {
     const statusEl = document.getElementById('formStatus');
@@ -113,44 +116,44 @@ document.addEventListener('DOMContentLoaded', () => {
       .map(n => form.querySelector(`[name="${n}"]`))
       .filter(Boolean);
 
-    // garante que todos são obrigatórios (sem mexer no HTML)
     fields.forEach(el => el.setAttribute('required', ''));
 
-    // helper para validar preenchimento
     const validate = () => {
       let ok = true;
       fields.forEach(el => {
         const v = (el.value || '').trim();
         if (!v) {
           el.classList.add('is-invalid');
+          el.setAttribute('aria-invalid','true');
           ok = false;
         } else {
-          el.value = v; // salva versão sem espaços extras
+          el.value = v;
           el.classList.remove('is-invalid');
+          el.removeAttribute('aria-invalid');
         }
       });
-      // validação nativa do email também
       if (ok && !form.checkValidity()) {
         const emailEl = form.querySelector('[name="email"]');
         if (emailEl && !emailEl.checkValidity()) {
           emailEl.classList.add('is-invalid');
+          emailEl.setAttribute('aria-invalid','true');
           ok = false;
         }
       }
       return ok;
     };
 
-    // feedback em tempo real ao digitar
     fields.forEach(el => {
       el.addEventListener('input', () => {
-        if ((el.value || '').trim()) el.classList.remove('is-invalid');
+        if ((el.value || '').trim()){
+          el.classList.remove('is-invalid');
+          el.removeAttribute('aria-invalid');
+        }
       });
     });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-
-      // 1) bloqueia se tiver algo vazio/inválido
       if (!validate()) {
         if (statusEl) {
           statusEl.textContent = 'Preencha todos os campos.';
@@ -159,7 +162,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // 2) monta os dados e envia
       const data = new FormData(form);
       if (!data.get('subject')) data.set('subject', 'Contato via Portfólio');
 
@@ -167,21 +169,15 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         if (btn) { btn.disabled = true; btn.setAttribute('aria-busy','true'); }
 
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Accept': 'application/json' },
-          body: data
-        });
-
+        const res = await fetch(endpoint, { method: 'POST', headers: { 'Accept': 'application/json' }, body: data });
         if (!res.ok) {
           const err = await res.json().catch(() => ({}));
           throw new Error(err.message || 'Falha no envio');
         }
 
-        // 3) sucesso
         if (statusEl) statusEl.textContent = 'Enviado com sucesso';
         form.reset();
-        fields.forEach(el => el.classList.remove('is-invalid'));
+        fields.forEach(el => { el.classList.remove('is-invalid'); el.removeAttribute('aria-invalid'); });
         setTimeout(() => { if (statusEl) statusEl.textContent = ''; }, 4000);
 
       } catch (err) {
@@ -206,134 +202,106 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ===== Ano no footer ===== */
   const y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
-});
 
-// ===== Slider de experiências (mobile) — rolagem pelos botões
-document.addEventListener('DOMContentLoaded', () => {
-  const wrap = document.querySelector('#experiencias .experiencias-snap');
-  const prev = document.querySelector('#experiencias .snap-prev');
-  const next = document.querySelector('#experiencias .snap-next');
-  if (!wrap || !prev || !next) return;
+  /* ===== Carrossel: 1 card por slide no mobile (restaura no desktop) ===== */
+  (function mobileOneCardPerSlide(){
+    const BREAKPOINT = 768;
+    const el = document.getElementById('carrosselExperiencias');
+    if (!el) return;
+    const inner = el.querySelector('.carousel-inner');
+    if (!inner) return;
 
-  const step = () => Math.round(wrap.clientWidth * 0.86); // ⬅️ passo da rolagem (mesmo 86% do CSS)
-  prev.addEventListener('click', () => wrap.scrollBy({ left: -step(), behavior: 'smooth' }));
-  next.addEventListener('click', () => wrap.scrollBy({ left:  step(), behavior: 'smooth' }));
+    const originalSlides = [...inner.children].map(n => n.cloneNode(true));
+    let isMobile = null;
 
-  // Acessibilidade: setas do teclado movem no mobile também
-  [prev, next].forEach(btn => btn.setAttribute('tabindex','0'));
-});
+    function rebuild(){
+      const nowMobile = window.innerWidth < BREAKPOINT;
+      if (nowMobile === isMobile) return;
 
-// === Carrossel: 1 card por slide no mobile (e restaura no desktop) ===
-(function mobileOneCardPerSlide(){
-  const BREAKPOINT = 768;
-  const el = document.getElementById('carrosselExperiencias');
-  if (!el) return;
-  const inner = el.querySelector('.carousel-inner');
-  if (!inner) return;
+      const inst = window.bootstrap ? bootstrap.Carousel.getInstance(el) : null;
+      if (inst) inst.dispose();
 
-  // salva o HTML original (2 slides com 3 cards)
-  const originalSlides = [...inner.children].map(n => n.cloneNode(true));
-  let isMobile = null;
+      if (nowMobile){
+        const cards = [...inner.querySelectorAll('.card-experiencia')];
+        inner.innerHTML = '';
+        cards.forEach((card, i) => {
+          const wrap = document.createElement('div');
+          wrap.className = 'd-flex justify-content-center px-4 flex-wrap gap-3 w-100 mx-auto';
+          wrap.appendChild(card);
+          const item = document.createElement('div');
+          item.className = 'carousel-item' + (i === 0 ? ' active' : '');
+          item.appendChild(wrap);
+          inner.appendChild(item);
+        });
+      } else {
+        inner.innerHTML = '';
+        originalSlides.forEach((slide, i) => {
+          const clone = slide.cloneNode(true);
+          clone.classList.toggle('active', i === 0);
+          inner.appendChild(clone);
+        });
+      }
 
-  function rebuild(){
-    const nowMobile = window.innerWidth < BREAKPOINT;
-    if (nowMobile === isMobile) return;
-
-    // reseta o Bootstrap Carousel antes de trocar o DOM
-    const inst = bootstrap.Carousel.getInstance(el);
-    if (inst) inst.dispose();
-
-    if (nowMobile){
-      // pega todos os cards e cria 1 slide para cada
-      const cards = [...inner.querySelectorAll('.card-experiencia')];
-      inner.innerHTML = '';
-      cards.forEach((card, i) => {
-        const wrap = document.createElement('div');
-        wrap.className = 'd-flex justify-content-center px-4 flex-wrap gap-3 w-100 mx-auto';
-        wrap.appendChild(card); // move o card
-        const item = document.createElement('div');
-        item.className = 'carousel-item' + (i === 0 ? ' active' : '');
-        item.appendChild(wrap);
-        inner.appendChild(item);
-      });
-    } else {
-      // restaura a estrutura original (3 por slide)
-      inner.innerHTML = '';
-      originalSlides.forEach((slide, i) => {
-        const clone = slide.cloneNode(true);
-        clone.classList.toggle('active', i === 0);
-        inner.appendChild(clone);
-      });
+      if (window.bootstrap){
+        new bootstrap.Carousel(el, { interval: false, ride: false, touch: true, wrap: true });
+      }
+      isMobile = nowMobile;
     }
 
-    // reativa o carrossel (sem autoplay)
-    new bootstrap.Carousel(el, { interval: false, ride: false, touch: true, wrap: true });
-    isMobile = nowMobile;
-  }
+    window.addEventListener('resize', rebuild, { passive: true });
+    rebuild();
+  })();
 
-  window.addEventListener('resize', rebuild, { passive: true });
-  rebuild(); // roda na carga
-})();
+  /* ===== Navbar mobile: fechar ao clicar fora/link/Esc ===== */
+  (function mobileNav(){
+    const toggler = document.querySelector('.navbar .navbar-toggler');
+    const collapseEl = document.querySelector('.navbar .navbar-collapse');
+    if (!toggler || !collapseEl) return;
 
-document.addEventListener('DOMContentLoaded', () => {
-  const toggler = document.querySelector('.navbar .navbar-toggler');
-  const collapseEl = document.querySelector('.navbar .navbar-collapse');
-  if (!toggler || !collapseEl) return;
+    const bsCollapse = window.bootstrap
+      ? bootstrap.Collapse.getOrCreateInstance(collapseEl, { toggle: false })
+      : null;
 
-  // Usa a API do Bootstrap se estiver carregada; senão, cai no fallback
-  const bsCollapse = window.bootstrap
-    ? bootstrap.Collapse.getOrCreateInstance(collapseEl, { toggle: false })
-    : null;
+    const isOpen = () => collapseEl.classList.contains('show');
+    const closeMenu = () => (bsCollapse ? bsCollapse.hide() : collapseEl.classList.remove('show'));
 
-  const isOpen = () => collapseEl.classList.contains('show');
-  const closeMenu = () => (bsCollapse ? bsCollapse.hide() : collapseEl.classList.remove('show'));
+    document.addEventListener('click', (e) => {
+      if (!isOpen()) return;
+      const clickedInside = collapseEl.contains(e.target) || toggler.contains(e.target);
+      if (!clickedInside) closeMenu();
+    });
 
-  // Fecha ao clicar fora
-  document.addEventListener('click', (e) => {
-    if (!isOpen()) return;
-    const clickedInside = collapseEl.contains(e.target) || toggler.contains(e.target);
-    if (!clickedInside) closeMenu();
-  });
+    collapseEl.addEventListener('click', (e) => {
+      const link = e.target.closest('.nav-link, .dropdown-item, a');
+      if (!link) return;
+      if (link.matches('[data-bs-toggle="dropdown"]')) return;
+      if (isOpen()) closeMenu();
+    });
 
-  // Fecha ao clicar em qualquer link dentro do menu (exceto dropdown toggles)
-  collapseEl.addEventListener('click', (e) => {
-    const link = e.target.closest('.nav-link, .dropdown-item, a');
-    if (!link) return;
-    if (link.matches('[data-bs-toggle="dropdown"]')) return;
-    if (isOpen()) closeMenu();
-  });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen()) {
+        closeMenu();
+        toggler.focus();
+      }
+    });
+  })();
 
-  // Fecha com ESC
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isOpen()) {
-      closeMenu();
-      toggler.focus();
+  /* ===== Navbar: padding-top dinâmico no mobile (altura real) ===== */
+  (function fixMobilePadding(){
+    const navbar = document.querySelector('.navbar');
+    function setMobileNavPadding(){
+      if (!navbar) return;
+      const isMobile = window.matchMedia('(max-width: 575.98px)').matches;
+      if (isMobile) {
+        const h = navbar.offsetHeight;
+        document.documentElement.style.setProperty('--nav-h-mobile', h + 'px');
+      } else {
+        document.documentElement.style.removeProperty('--nav-h-mobile');
+      }
     }
-  });
+    setMobileNavPadding();
+    window.addEventListener('resize', setMobileNavPadding);
+    window.addEventListener('orientationchange', setMobileNavPadding);
+    window.addEventListener('load', setMobileNavPadding);
+  })();
 });
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  const navbar = document.querySelector('.navbar');
-
-  function setMobileNavPadding(){
-    if (!navbar) return;
-    const isMobile = window.matchMedia('(max-width: 575.98px)').matches;
-    if (isMobile) {
-      // mede a altura real (leva em conta o logo, paddings etc.)
-      const h = navbar.offsetHeight;
-      document.documentElement.style.setProperty('--nav-h-mobile', h + 'px');
-    } else {
-      document.documentElement.style.removeProperty('--nav-h-mobile');
-    }
-  }
-
-  setMobileNavPadding();
-  window.addEventListener('resize', setMobileNavPadding);
-  window.addEventListener('orientationchange', setMobileNavPadding);
-  // se o logo carregar depois, recalcula
-  window.addEventListener('load', setMobileNavPadding);
-});
-
-
-
