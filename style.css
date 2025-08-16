@@ -825,3 +825,61 @@ html.theme-dark .navbar .navbar-nav>li:last-child .btn-theme:hover{
 }
 
 
+/* ==============================
+   CARROSSEL — MOBILE (texto organizado)
+   ============================== */
+@media (max-width: 767.98px){
+  /* o slide acompanha a altura do conteúdo */
+  #carrosselExperiencias .carousel-item{
+    height:auto;
+  }
+
+  /* wrapper do slide: ocupa largura inteira e estica o card */
+  #carrosselExperiencias .carousel-item > .d-flex{
+    padding-inline: 1rem !important;
+    gap: 1rem !important;
+    align-items: stretch;
+    flex-wrap: nowrap;
+  }
+
+  /* CARD: tira altura fixa e deixa o conteúdo respirar */
+  #carrosselExperiencias .card-experiencia{
+    width:100%;
+    max-width:520px;
+    height:auto;            /* ← antes era 380px */
+    padding:16px;           /* um respiro a mais no mobile */
+    overflow:hidden;        /* mantém o border-radius certinho */
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* imagem flexível, sem “empurrar” o texto */
+  #carrosselExperiencias .card-experiencia img{
+    width:100%;
+    height:auto;            /* ← antes era 180px fixo */
+    max-height:240px;       /* limite opcional p/ não ficar gigante */
+    object-fit:cover;
+    border-radius:var(--r-md);
+  }
+
+  /* título legível e com boa linha */
+  #carrosselExperiencias .card-experiencia h5{
+    font-size:1.15rem;
+    line-height:1.25;
+    margin:12px 0 6px;
+    word-break:break-word;
+    overflow-wrap:break-word;
+  }
+
+  /* texto: volta ao fluxo normal (sem flex),
+     sem altura mínima forçada e com quebras seguras */
+  #carrosselExperiencias .card-experiencia p{
+    display:block;          /* ← reseta o flex do desktop */
+    min-height:0;           /* ← remove os 80px que comprimiam */
+    margin:0;
+    line-height:1.45;
+    white-space:normal;
+    overflow-wrap:break-word;
+    word-break:break-word;
+  }
+}
