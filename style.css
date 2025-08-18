@@ -883,4 +883,134 @@ html.theme-dark .navbar .navbar-nav>li:last-child .btn-theme:hover{
 }
 }
 
+/* Botão "Ver mais projetos" — minimalista e sutil */
+.btn-vermais{
+  display:inline-flex; align-items:center; justify-content:center;
+  gap:.5rem;
+  padding:11px 22px;
+  border-radius: var(--r-lg);
+  font-weight:600; font-size:1rem;
+  color:var(--ink);
+  text-decoration:none;
+  background: var(--surface);
+  border:1px solid color-mix(in oklab, var(--ink) 18%, transparent);
+  box-shadow:0 2px 4px rgba(0,0,0,.06);
+  transition: background var(--t-base), transform var(--t-base), box-shadow var(--t-base);
 
+  /* espaçamento extra acima */
+  margin-top: var(--sp-3); /* ~1.5rem */
+}
+
+.btn-vermais i{ font-size:1.1rem; line-height:0; }
+
+/* Hover/focus: só um leve destaque */
+.btn-vermais:hover{
+  background: color-mix(in oklab, var(--bg-alt) 65%, var(--surface));
+  box-shadow:0 4px 8px rgba(0,0,0,.08);
+  transform: translateY(-1px);
+}
+
+.btn-vermais:focus-visible{
+  outline:none;
+  box-shadow:0 0 0 3px var(--surface),
+             0 0 0 5px color-mix(in oklab, var(--brand) 35%, transparent);
+}
+
+.btn-vermais:active{
+  transform:none;
+  box-shadow:0 2px 4px rgba(0,0,0,.06);
+}
+
+/* Dark mode */
+html.theme-dark .btn-vermais{
+  background: var(--bg-alt);
+  color: var(--ink-2);
+  border:1px solid color-mix(in oklab, var(--ink) 22%, transparent);
+  box-shadow:0 2px 4px rgba(0,0,0,.18);
+}
+
+html.theme-dark .btn-vermais:hover{
+  background: color-mix(in oklab, var(--surface) 70%, var(--bg-alt));
+}
+
+/* Responsivo */
+@media (max-width: 575.98px){
+  .btn-vermais{
+    width:100%; padding:13px 18px; border-radius: var(--r-md);
+    margin-top: var(--sp-2); /* menor respiro no mobile */
+  }
+}
+
+
+
+
+
+/* === Carrossel: não cortar no eixo Y, travar só o X com respiro === */
+.sobre-container,
+.sobre__fundo{
+  overflow: visible !important;           /* nada corta aqui */
+}
+
+#carrosselExperiencias,
+#carrosselExperiencias .carousel,
+#carrosselExperiencias .carousel-inner{
+  overflow-y: visible !important;         /* pode subir */
+}
+
+#carrosselExperiencias .carousel-inner{
+  overflow-x: hidden !important;          /* evita scroll lateral */
+  padding-inline: 16px;                   /* “gutter” p/ sombra não encostar na borda */
+}
+
+/* dá um teto para o hover não encostar e parecer cortado */
+#carrosselExperiencias .carousel-item{
+  padding-block: 8px;
+}
+
+/* card sobe só no Y e fica por cima dos irmãos */
+.card-experiencia{
+  position: relative; z-index: 1; will-change: transform;
+}
+.card-experiencia:hover{
+  transform: translate3d(0,-6px,0);
+  z-index: 3;
+}
+
+/* estado base: prepara transições e acessibilidade */
+.apresentacao__icones a{
+  display:inline-flex; align-items:center; justify-content:center;
+  border-radius:12px; outline: none; position: relative;
+}
+.apresentacao__icones img{
+  width:45px; height:auto;
+  transition: transform var(--t-base) ease, filter var(--t-base) ease;
+  will-change: transform, filter;
+}
+
+/* hover/focus: leve bounce + glow colorido brand */
+.apresentacao__icones a:hover img,
+.apresentacao__icones a:focus-visible img{
+  transform: translateY(-2px) scale(1.05);
+  filter: drop-shadow(0 6px 12px color-mix(in oklab, var(--brand) 35%, transparent));
+  animation: icon-bounce .6s ease-out 1;
+}
+
+/* foco visível na âncora (anel sutil) */
+.apresentacao__icones a:focus-visible{
+  box-shadow: 0 0 0 3px var(--surface), 0 0 0 5px color-mix(in oklab, var(--brand) 35%, transparent);
+}
+
+/* bounce curtinho */
+@keyframes icon-bounce{
+  0%{ transform: translateY(0) scale(1) }
+  40%{ transform: translateY(-4px) scale(1.09) }
+  100%{ transform: translateY(-2px) scale(1.08) }
+}
+
+/* respeita reduzir movimento */
+@media (prefers-reduced-motion: reduce){
+  .apresentacao__icones a:hover img,
+  .apresentacao__icones a:focus-visible img{
+    animation: none;
+  }
+}
